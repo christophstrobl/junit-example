@@ -17,8 +17,6 @@ package com.acme.example.time;
 
 import java.io.File;
 
-import org.junit.Test;
-
 public class RecordServiceImpl implements RecordService {
 
 	@Override
