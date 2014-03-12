@@ -19,7 +19,7 @@ import java.io.File;
 
 public interface RecordService {
 
-	File export();
+	File export(String path, String filename);
 
 	Record saveRecord(Record record);
 

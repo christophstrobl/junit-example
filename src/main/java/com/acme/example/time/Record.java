@@ -30,6 +30,16 @@ public class Record {
 
 	private Date endTime;
 
+	public Record() {
+	}
+
+	public Record(Long id, Date startTime, Date endTime) {
+		super();
+		this.id = id;
+		this.startTime = startTime;
+		this.endTime = endTime;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -52,6 +62,11 @@ public class Record {
 
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
+	}
+
+	@Override
+	public String toString() {
+		return "Record [startTime=" + startTime + ", endTime=" + endTime + "]";
 	}
 
 }

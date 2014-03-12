@@ -16,13 +16,52 @@
 package com.acme.example.time;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import java.util.UUID;
 
-public class RecordServiceImpl implements RecordService {
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+
+class RecordServiceImpl implements RecordService {
+
+	private final RecordRepository recordRepository;
+
+	@Autowired
+	RecordServiceImpl(RecordRepository repository) {
+		this.recordRepository = repository;
+	}
 
 	@Override
-	public File export() {
-		// TODO: test showing temp file
-		return null;
+	public File export(String path, String filename) {
+
+		List<Record> records = this.recordRepository.findAll();
+		return writeRecordsToFile(records,
+				createFileAndPotentiallyModifyFilename(path, filename));
+	}
+
+	private File createFileAndPotentiallyModifyFilename(String path,
+			String filename) {
+		String tmpFileName = FilenameUtils.concat(path, filename);
+		File file = null;
+		while ((file = new File(tmpFileName)).exists()) {
+			tmpFileName = FilenameUtils.concat(
+					path,
+					FilenameUtils.getBaseName(filename) + "-"
+							+ UUID.randomUUID().toString()
+							+ FilenameUtils.getExtension(filename));
+		}
+		return file;
+	}
+
+	private File writeRecordsToFile(List<Record> records, File file) {
+		try {
+			FileUtils.writeLines(file, records);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		return file;
 	}
 
 	@Override
