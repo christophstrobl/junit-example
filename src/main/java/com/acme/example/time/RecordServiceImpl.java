@@ -23,7 +23,9 @@ import java.util.UUID;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 class RecordServiceImpl implements RecordService {
 
 	private final RecordRepository recordRepository;
@@ -69,9 +71,8 @@ class RecordServiceImpl implements RecordService {
 		// TODO: show expected exceptions if record is null
 		// TODO: show expected execptions testing erro messge - eg for error
 		// codes
-		// TODO: show Spring JUnit Runner transactional testing
+		return this.recordRepository.save(record);
 		// TODO: show Assumes if record exists assume false für findAndUpdate
-		return null;
 	}
 
 	@Override
