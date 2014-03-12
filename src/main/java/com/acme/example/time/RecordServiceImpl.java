@@ -24,6 +24,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 @Service
 class RecordServiceImpl implements RecordService {
@@ -68,7 +69,8 @@ class RecordServiceImpl implements RecordService {
 
 	@Override
 	public Record saveRecord(Record record) {
-		// TODO: show expected exceptions if record is null
+		
+		Assert.notNull(record, "Cannot save 'null' record.");
 		// TODO: show expected execptions testing erro messge - eg for error
 		// codes
 		return this.recordRepository.save(record);
