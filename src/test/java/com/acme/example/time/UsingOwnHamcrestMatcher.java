@@ -12,7 +12,7 @@ public class UsingOwnHamcrestMatcher {
 	private RecordConverter recordConverter = new WebInputRecordConverter();
 	
 	@Test
-	public void testFoo() {
+	public void webInputConverterCreatesRecordWithCorrectStartTime() {
 		Record record = recordConverter.createRecordForToday("07:30", "11:30");
 		assertThat(record, startsAt("07:30"));
 	}
