@@ -18,12 +18,14 @@ package com.acme.example.time;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
 public class Record {
 
 	@Id
+	@GeneratedValue
 	private Long id;
 
 	private Date startTime;
