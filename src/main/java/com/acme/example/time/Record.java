@@ -33,6 +33,10 @@ public class Record {
 	public Record() {
 	}
 
+	public Record(Date startTime, Date endTime) {
+		this(null, startTime, endTime);
+	}
+
 	public Record(Long id, Date startTime, Date endTime) {
 		super();
 		this.id = id;
