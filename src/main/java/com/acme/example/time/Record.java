@@ -75,4 +75,8 @@ public class Record {
 		return "Record [startTime=" + startTime + ", endTime=" + endTime + "]";
 	}
 
+	public long getDuration() {
+		return endTime.getTime()-startTime.getTime();
+	}
+
 }
