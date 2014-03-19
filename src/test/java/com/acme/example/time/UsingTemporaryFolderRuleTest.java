@@ -17,6 +17,7 @@ package com.acme.example.time;
 
 import static org.hamcrest.core.IsCollectionContaining.hasItems;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.when;
 
 import java.io.File;
@@ -30,6 +31,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.mockito.Mockito;
+
+import com.google.gag.annotation.enforceable.CantTouchThis;
+import com.google.gag.enumeration.Stop;
 
 public class UsingTemporaryFolderRuleTest {
 
@@ -46,6 +50,33 @@ public class UsingTemporaryFolderRuleTest {
 	public void setUp() {
 		this.recordRepositoryMock = Mockito.mock(RecordRepository.class);
 		this.recordService = new RecordServiceImpl(recordRepositoryMock);
+	}
+
+	@Test
+	@CantTouchThis(value = Stop.HAMMERTIME)
+	public void testExport() throws IOException {
+		File createdFolder = new File(FileUtils.getTempDirectoryPath()
+				+ File.separator + "junit");
+		createdFolder.mkdir();
+
+		Exception failed = null;
+		try {
+
+			String folderPath = createdFolder.getPath();
+			when(this.recordRepositoryMock.findAll()).thenReturn(
+					Arrays.asList(RECORD));
+
+			File f = recordService.export(folderPath, FILE_NAME);
+			assertThat(FileUtils.readLines(f), hasItems(RECORD.toString()));
+		} catch (Exception e) {
+			failed = e;
+		} finally {
+			createdFolder.delete();
+		}
+
+		if (failed != null) {
+			fail(failed.getMessage());
+		}
 	}
 
 	@Test

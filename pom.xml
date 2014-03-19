@@ -71,6 +71,12 @@
 			<version>2.4</version>
 		</dependency>
 
+		<!-- GAG -->
+		<dependency>
+			<groupId>com.google.gag</groupId>
+			<artifactId>gag</artifactId>
+			<version>1.0.1</version>
+		</dependency>
 
 		<!-- TESTING -->
 		<dependency>
